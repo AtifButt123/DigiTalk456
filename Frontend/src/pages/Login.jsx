@@ -5,17 +5,17 @@ import logo from "../../public/Images/logo.png";
 import { DigiTalkContext } from "../context/DigitalkContext";
 
 const login = () => {
-  const {updateuser,connectedAccounts} =useContext(DigiTalkContext)
+  const { updateuser, connectedAccounts } = useContext(DigiTalkContext)
   const [credentials, setCredentials] = useState({
-    email: undefined,
-    password: undefined,
+    email: "",
+    password: "",
   });
 
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    setCredentials((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
+  // const handleChange = (e) => {
+  //   setCredentials((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  // };
 
   const handleClick = async (e) => {
     e.preventDefault();
@@ -27,7 +27,7 @@ const login = () => {
     // console.log(credentials)
     // console.log(JSON.stringify(credentials))
 
-
+    console.log(`${BASE_URL}/auth/login`)
     try {
       const res = await fetch(`${BASE_URL}/auth/login`, {
         method: "post",
@@ -38,25 +38,22 @@ const login = () => {
       });
 
       const result = await res.json();
-      if(result)
-      {
+      if (result) {
         console.log(result)
       }
       if (!res.ok) alert(result.message);
       console.log(result.data);
 
-      if(res.ok)
-      {
+      if (res.ok) {
 
-        localStorage.setItem("user",JSON.stringify(result.user))
-        
-        if(connectedAccounts)
-        {
+        localStorage.setItem("user", JSON.stringify(result.user))
+
+        if (connectedAccounts) {
           // const Id=JSON.parse(localStorage.getItem("user")).id;
-          console.log("Response we get:",result.user.id)
+          console.log("Response we get:", result.user.id)
           console.log("Inside Update after login------------- ")
-          updateuser(connectedAccounts,result.user.id)
-          localStorage.setItem("key",connectedAccounts);
+          updateuser(connectedAccounts, result.user.id)
+          localStorage.setItem("key", connectedAccounts);
         }
         navigate("/");
       }
@@ -66,18 +63,28 @@ const login = () => {
   };
   return (
     <div>
-        <form className="form form-login" id="form-login"  onSubmit={handleClick}>
-            <img className="mb-4" src={logo} alt="" width="250" height="100"/>
-            <h1 className="h3 mb-3 font-weight-normal text-white">Login to DigiTalk!</h1>
+      <form className="form form-login" id="form-login" onSubmit={handleClick}>
+        <img className="mb-4" src={logo} alt="" width="250" height="100" />
+        <h1 className="h3 mb-3 font-weight-normal text-white">Login to DigiTalk!</h1>
 
-            <input type="text" name="email" id="inputEmail" className="form-control middle" 
-            onChange={handleChange} placeholder="email" value={credentials.email} required/>
+        <input type="text" name="email" id="inputEmail" className="form-control middle"
+          onChange={(e) => {
+            setCredentials((prev) => ({
+              email: e.target.value,
+              password: prev.password,
+            }));
+          }} placeholder="email" value={credentials.email} required />
 
-            <input type="password" name="password" id="inputPassword" 
-            onChange={handleChange} className="form-control bottom" value={credentials.password} placeholder="password" required/>
-            <button className="btn btn-lg btn-primary btn-block my-4" id="inputDob">Login!</button>
-            <a href="/register">Don't have an Account?</a>
-        </form>
+        <input type="password" name="password" id="inputPassword"
+          onChange={(e) => {
+            setCredentials((prev) => ({
+              email: prev.name,
+              password: e.target.value,
+            }))
+          }} className="form-control bottom" value={credentials.password} placeholder="password" required />
+        <button className="btn btn-lg btn-primary btn-block my-4" id="inputDob">Login!</button>
+      </form>
+      <Link to="/register">Don't have an Account?</Link>
     </div>
   )
 }
