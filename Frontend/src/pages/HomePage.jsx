@@ -109,9 +109,7 @@ const Home = () => {
         <>
           <ConnectPage/>
         </>
-
       }
-
 
     </div>
   );
