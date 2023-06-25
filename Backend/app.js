@@ -1,3 +1,4 @@
+
 import mongoose from "mongoose";
 import authRoute from "./routes/auth.js";
 import userRoute from "./routes/users.js";
@@ -10,17 +11,16 @@ import dotenv from "dotenv";
 import bodyParser from "body-parser";
 
 dotenv.config();
-mongoose.set("strictQuery", true);
+// mongoose.set("strictQuery", true);
 
-const connect = async () => {
-  try {
-    await mongoose.connect(process.env.MONGO_URL);
 
-    console.log("MongoDB Database Connected");
-  } catch (err) {
-    console.log("MongoDB Database Connection Failed");
-  }
-};
+mongoose.connect(process.env.CONN_STRING,{
+    useUnifiedTopology:true,
+    useNewUrlParser:true
+}).then(()=> console.log("Database Connected")).catch((err)=>{
+    console.log(err);
+})
+
 
 // const ejs = require("ejs");
 // const jwt = require('jsonwebtoken');
@@ -32,15 +32,15 @@ const corsOptions = {
   credentials: true,
 };
 
+app.get("/", function (req, res) {
+  res.send("Hello World");
+});
+
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.use(cors());
-
-app.get("/", (req,res) => {
-  res.send("Hello to Campus Connect API");
-})
 
 app.use("/api/v1/auth", authRoute);
 app.use("/api/v1/users", userRoute);
@@ -53,6 +53,5 @@ app.use(cookieParser());
 
 
 app.listen(port, function () {
-  connect();
   console.log("Server started on port 3000");
-});
+})
