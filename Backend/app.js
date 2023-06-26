@@ -13,8 +13,8 @@ import bodyParser from "body-parser";
 dotenv.config();
 // mongoose.set("strictQuery", true);
 
-
-mongoose.connect(process.env.CONN_STRING,{
+const {MongoClient} = require("mongodb").MongoClient;
+MongoClient.connect(process.env.CONN_STRING,{
     useUnifiedTopology:true,
     useNewUrlParser:true
 }).then(()=> console.log("Database Connected")).catch((err)=>{
