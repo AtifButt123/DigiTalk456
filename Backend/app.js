@@ -13,17 +13,11 @@ import bodyParser from "body-parser";
 dotenv.config();
 // mongoose.set("strictQuery", true);
 
-import MongoClient from "mongodb"
+import { MongoClient } from "mongodb"
 
 const client = new MongoClient(process.env.CONN_STRING)
 
-try{
-  client.connect()
-
-}
-catch(e){
-  console.error(e)
-}
+client.connect().then(() => console.log("Connected Successfully")).catch(error => console.log('Failed to connect', error))
 
 
 // const ejs = require("ejs");
