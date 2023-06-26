@@ -13,14 +13,17 @@ import bodyParser from "body-parser";
 dotenv.config();
 // mongoose.set("strictQuery", true);
 
-import { MongoClient } from "mongodb/MongoClient"
+import MongoClient from "mongodb"
 
-MongoClient.connect(process.env.CONN_STRING,{
-    useUnifiedTopology:true,
-    useNewUrlParser:true
-}).then(()=> console.log("Database Connected")).catch((err)=>{
-    console.log(err);
-})
+const client = new MongoClient(process.env.CONN_STRING)
+
+try{
+  client.connect()
+
+}
+catch(e){
+  console.error(e)
+}
 
 
 // const ejs = require("ejs");
