@@ -20,8 +20,6 @@ console.log(process.env.CONN_STRING)
 mongoose.connect(process.env.CONN_STRING,{
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  useCreateIndex: true,
-  useFindAndModify: false
 }).then(() => console.log("Connected Successfully")).catch(error => console.log('Failed to connect', error))
 
 
