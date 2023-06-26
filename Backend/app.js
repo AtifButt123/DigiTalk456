@@ -13,7 +13,8 @@ import bodyParser from "body-parser";
 dotenv.config();
 // mongoose.set("strictQuery", true);
 
-const {MongoClient} = require("mongodb").MongoClient;
+import { MongoClient } from "mongodb/MongoClient"
+
 MongoClient.connect(process.env.CONN_STRING,{
     useUnifiedTopology:true,
     useNewUrlParser:true
