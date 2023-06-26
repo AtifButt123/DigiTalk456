@@ -17,7 +17,7 @@ console.log(process.env.CONN_STRING)
 
 // import { MongoClient } from "mongodb"
 
-// new MongoClient(process.env.CONN_STRING).connect().then(() => console.log("Connected Successfully")).catch(error => console.log('Failed to connect', error))
+mongoose.connect(process.env.CONN_STRING).then(() => console.log("Connected Successfully")).catch(error => console.log('Failed to connect', error))
 
 
 // const ejs = require("ejs");
