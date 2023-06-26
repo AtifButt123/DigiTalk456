@@ -27,7 +27,6 @@ const login = () => {
     // console.log(credentials)
     // console.log(JSON.stringify(credentials))
 
-    console.log(`${BASE_URL}/auth/login`)
     try {
       const res = await fetch(`${BASE_URL}/auth/login`, {
         method: "post",
@@ -36,7 +35,7 @@ const login = () => {
         },
         body: JSON.stringify(credentials),
       });
-
+      console.log(res)
       const result = await res.json();
       if (result) {
         console.log(result)
@@ -83,8 +82,8 @@ const login = () => {
             }))
           }} className="form-control bottom" value={credentials.password} placeholder="password" required />
         <button className="btn btn-lg btn-primary btn-block my-4" id="inputDob">Login!</button>
+        <Link to="/register">Don't have an Account?</Link>
       </form>
-      <Link to="/register">Don't have an Account?</Link>
     </div>
   )
 }

@@ -121,7 +121,7 @@ export const login = async (req, res) => {
     if (!email || !password) {
       // console.log("Request receiqe434ve-----------");
 
-      res.status(4001).json({
+      res.status(401).json({
         status: "FAILED",
         message: "Email or Password Not Entered!",
       });
