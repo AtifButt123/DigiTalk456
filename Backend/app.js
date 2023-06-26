@@ -15,7 +15,7 @@ dotenv.config();
 
 import { MongoClient } from "mongodb"
 
-MongoClient(process.env.CONN_STRING).connect().then(() => console.log("Connected Successfully")).catch(error => console.log('Failed to connect', error))
+new MongoClient(process.env.CONN_STRING).connect().then(() => console.log("Connected Successfully")).catch(error => console.log('Failed to connect', error))
 
 
 // const ejs = require("ejs");
